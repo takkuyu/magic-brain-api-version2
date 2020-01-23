@@ -16,7 +16,7 @@ const handleRegister = (req, res, db, bcrypt) => {
                 return trx('users')
                     .returning('*')
                     .insert({
-                        email: loginEmail[0],
+                        email: loginEmail[0], 
                         name: name,
                         joined: new Date()
                     })
@@ -27,8 +27,7 @@ const handleRegister = (req, res, db, bcrypt) => {
             .then(trx.commit) // write commit to make sure this is added
             .catch(trx.rollback) // when fails we roll back the changes
     })
-
-        .catch(err => res.status(400).json('unable to register'));
+        .catch(err => res.status(400).json('Please try another email')); // email has to be unique
 }
 
 module.exports = {
